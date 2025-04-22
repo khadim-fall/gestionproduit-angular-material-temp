@@ -26,7 +26,8 @@ export class ProduitComponent implements OnInit {
   //Ouvrir un popup
   @ViewChild('editDialog') editDialog!: TemplateRef<any>;
   produitEnEdition: any = {}; // Copie locale pour édition dans le dialog
-
+//supprimer dialogue
+@ViewChild('confirmDialog') confirmDialog!: TemplateRef<any>;
   // Ouvre le formulaire d’édition dans une popup
   editProduit(p: any): void {
     this.produitEnEdition = { ...p }; // clone pour ne pas modifier directement
@@ -96,7 +97,15 @@ export class ProduitComponent implements OnInit {
   }*/
 
   deleteProduit(id: number): void {
-    this.produitService.delete(id).subscribe(() => this.getProduits());
+    const dialogRef = this.dialog.open(this.confirmDialog, {
+      width: '300px',
+      data: {},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.produitService.delete(id).subscribe(() => this.getProduits());
+      }
+    });
   }
 
   resetForm(): void {

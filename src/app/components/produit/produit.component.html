@@ -141,38 +141,50 @@
   </mat-card>
   
   <ng-template #editDialog>
-    <h2 mat-dialog-title>Modifier Produit</h2>
-    <mat-dialog-content class="p-2">
-      <mat-form-field appearance="fill" class="w-full">
+    <div class="popup-container">
+    <h2 mat-dialog-title class="popup-title">Modifier Produit</h2>
+    <mat-dialog-content  class="popup-content">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Désignation</mat-label>
         <input matInput [(ngModel)]="produitEnEdition.nom" [disabled]="produitEnEdition.id">
       </mat-form-field>
-  
-      <mat-form-field appearance="fill" class="w-full">
+      <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Prix Achat</mat-label>
         <input matInput type="number" [(ngModel)]="produitEnEdition.prixAchat" [disabled]="produitEnEdition.id">
       </mat-form-field>
   
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Prix Vente</mat-label>
         <input matInput type="number" [(ngModel)]="produitEnEdition.prixVente" [disabled]="produitEnEdition.id">
       </mat-form-field>
-  
-      <mat-form-field appearance="fill" class="w-full">
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Quantité</mat-label>
         <input matInput type="number" [(ngModel)]="produitEnEdition.quantite" [disabled]="produitEnEdition.id">
       </mat-form-field>
   
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Stock Restant</mat-label>
         <input matInput type="number" [(ngModel)]="produitEnEdition.stockRestant">
       </mat-form-field>
+    </div>
     </mat-dialog-content>
   
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="dialog.closeAll()">Annuler</button>
-      <button mat-button color="primary" (click)="saveEdit()">Enregistrer</button>
+    <mat-dialog-actions align="end"  class="popup-actions">
+      <button mat-button color="warm" (click)="dialog.closeAll()">Annuler</button>
+      <button mat-raised-button color="primary" (click)="saveEdit()">Enregistrer</button>
     </mat-dialog-actions>
+  </div>
   </ng-template>
+  <ng-template #confirmDialog let-dialogRef="dialogRef">
+    <h2 mat-dialog-title>🗑️ Confirmation</h2>
+    <mat-dialog-content>Voulez-vous vraiment supprimer ce produit ?</mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close(false)">Annuler</button>
+      <button mat-button color="warn" (click)="dialogRef.close(true)">Supprimer</button>
+    </mat-dialog-actions>
+  </ng-template>  
   
 </div>
