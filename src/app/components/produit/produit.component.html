@@ -139,5 +139,39 @@
     </div>
   </mat-card>
   
+  <ng-template #editDialog>
+    <h2 mat-dialog-title>Modifier Produit</h2>
+    <mat-dialog-content class="p-2">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Désignation</mat-label>
+        <input matInput [(ngModel)]="produitEnEdition.nom" [disabled]="produitEnEdition.id">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Prix Achat</mat-label>
+        <input matInput type="number" [(ngModel)]="produitEnEdition.prixAchat" [disabled]="produitEnEdition.id">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Prix Vente</mat-label>
+        <input matInput type="number" [(ngModel)]="produitEnEdition.prixVente" [disabled]="produitEnEdition.id">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Quantité</mat-label>
+        <input matInput type="number" [(ngModel)]="produitEnEdition.quantite" [disabled]="produitEnEdition.id">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Stock Restant</mat-label>
+        <input matInput type="number" [(ngModel)]="produitEnEdition.stockRestant">
+      </mat-form-field>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialog.closeAll()">Annuler</button>
+      <button mat-button color="primary" (click)="saveEdit()">Enregistrer</button>
+    </mat-dialog-actions>
+  </ng-template>
   
 </div>

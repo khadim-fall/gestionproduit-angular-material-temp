@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProduitService } from '../../services/produit.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ViewChild, TemplateRef } from '@angular/core';
 @Component({
   selector: 'app-produit',
   templateUrl: './produit.component.html'
@@ -22,8 +23,24 @@ export class ProduitComponent implements OnInit {
     quantite: 0,
     stockRestant: 0
   };
+  //Ouvrir un popup
+  @ViewChild('editDialog') editDialog!: TemplateRef<any>;
+  produitEnEdition: any = {}; // Copie locale pour édition dans le dialog
 
-  constructor(private produitService: ProduitService) { }
+  // Ouvre le formulaire d’édition dans une popup
+  editProduit(p: any): void {
+    this.produitEnEdition = { ...p }; // clone pour ne pas modifier directement
+    this.dialog.open(this.editDialog);
+  }
+  // Enregistre la modification
+  saveEdit(): void {
+    this.produitService.update(this.produitEnEdition).subscribe(() => {
+      this.dialog.closeAll();
+      this.getProduits();
+    });
+  }
+
+  constructor(private produitService: ProduitService ,private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getProduits();
@@ -74,9 +91,9 @@ export class ProduitComponent implements OnInit {
     }
   }
 
-  editProduit(p: any): void {
+  /*editProduit(p: any): void {
     this.produit = { ...p };
-  }
+  }*/
 
   deleteProduit(id: number): void {
     this.produitService.delete(id).subscribe(() => this.getProduits());
