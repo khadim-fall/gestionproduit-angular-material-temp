@@ -1,0 +1,41 @@
+{
+  "name": "gestionproduit-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "build:ng": "ng build --configuration production",
+    "start-electron": "npm run build:ng && electron .",
+    "dist": "npm run build:ng && electron-builder",
+    "electron:dev": "npm run build:ng && electron .",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "@angular/animations": "^17.0.0",
+    "@angular/cdk": "^17.3.10",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/flex-layout": "^15.0.0-beta.42",
+    "@angular/forms": "^17.0.0",
+    "@angular/material": "^17.3.10",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@angular/router": "^17.0.0",
+    "rxjs": "~7.8.1",
+    "tslib": "^2.8.1",
+    "zone.js": "~0.14.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "electron": "^35.1.5",
+    "typescript": "~5.2.2"
+  }
+}
