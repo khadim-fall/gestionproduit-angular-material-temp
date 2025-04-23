@@ -12,7 +12,6 @@ export class ProduitComponent implements OnInit {
   totalPrixVente: number = 0;
   totalBenefice: number = 0;
 
-
   displayedColumns: string[] = [
     'nom', 'prixAchat', 'prixVente', 'quantite', 'stockRestant', 'prixTotalAchat', 'prixTotalVente', 'quantiteVendu', 'benefice', 'actions'
   ];
@@ -23,6 +22,19 @@ export class ProduitComponent implements OnInit {
     quantite: 0,
     stockRestant: 0
   };
+  //chrger tous les produits
+  getProduits(): void {
+    this.produitService.getAll().subscribe(data => {
+      this.produits = data;
+      this.recalculerChamps();
+    });
+  }
+  //
+  constructor(private produitService: ProduitService ,private dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    this.getProduits();
+  }
   //Ouvrir un popup
   @ViewChild('editDialog') editDialog!: TemplateRef<any>;
   produitEnEdition: any = {}; // Copie locale pour édition dans le dialog
@@ -41,11 +53,7 @@ export class ProduitComponent implements OnInit {
     });
   }
 
-  constructor(private produitService: ProduitService ,private dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    this.getProduits();
-  }
+ 
 
   /** recalcul les champs aprés modification*/
   private recalculerChamps(): void {
@@ -70,12 +78,7 @@ export class ProduitComponent implements OnInit {
     });
   }
 
-  getProduits(): void {
-    this.produitService.getAll().subscribe(data => {
-      this.produits = data;
-      this.recalculerChamps();
-    });
-  }
+
 
 
   saveProduit(): void {
