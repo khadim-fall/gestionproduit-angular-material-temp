@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProduitService } from '../../services/produit.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewChild, TemplateRef } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-produit',
   templateUrl: './produit.component.html'
@@ -15,6 +17,8 @@ export class ProduitComponent implements OnInit {
   displayedColumns: string[] = [
     'nom', 'prixAchat', 'prixVente', 'quantite', 'stockRestant', 'prixTotalAchat', 'prixTotalVente', 'quantiteVendu', 'benefice', 'actions'
   ];
+  dataSource = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   produit: any = {
     nom: '',
     prixAchat: 0,
@@ -25,7 +29,9 @@ export class ProduitComponent implements OnInit {
   //chrger tous les produits
   getProduits(): void {
     this.produitService.getAll().subscribe(data => {
-      this.produits = data;
+      this.produits = data; // <-- essentiel !
+      this.dataSource.data = this.produits;
+      this.dataSource.paginator = this.paginator;
       this.recalculerChamps();
     });
   }
@@ -34,6 +40,7 @@ export class ProduitComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProduits();
+    this.dataSource.data = this.produits;
   }
   //Ouvrir un popup
   @ViewChild('editDialog') editDialog!: TemplateRef<any>;
