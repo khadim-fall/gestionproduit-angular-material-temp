@@ -1,195 +1,321 @@
 <mat-toolbar color="primary" class="toolbar-centered">
-  <span >Tableau d'Inventaire des Produits avec des totaux globaux Achat |vente | Bénefice</span>
+  <span
+    >Tableau d'Inventaire des Produits avec des totaux globaux Achat |vente |
+    Bénefice</span
+  >
 </mat-toolbar>
 
-<div class="container mt-4" style="padding: 20px;">
+<div class="container mt-4" style="padding: 20px">
   <mat-card>
-    <h2>Veuilez remplir tous les champs* pour ajouter un produit avec quantité qui doit avoir la même  valeur que stockRestant </h2>
+    <h2>
+      Veuillez remplir tous les champs* pour ajouter un produit avec quantité qui
+      doit avoir la même valeur que stockRestant
+    </h2>
     <form (ngSubmit)="saveProduit()" #produitForm="ngForm">
-      <div  fxLayout="column" fxLayoutGap="16px" fxFlexFill style="display: flex; flex-wrap: wrap; gap: 16px;">
-        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 200px;">
+      <div
+        fxLayout="column"
+        fxLayoutGap="16px"
+        fxFlexFill
+        style="display: flex; flex-wrap: wrap; gap: 16px"
+      >
+        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 200px">
           <mat-label>Désignation</mat-label>
-          <input matInput [(ngModel)]="produit.nom" name="nom" [disabled]="produit.id" required>
+          <input
+            matInput
+            [(ngModel)]="produit.nom"
+            name="nom"
+            [disabled]="produit.id"
+            required
+          />
         </mat-form-field>
-        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px;">
+        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px">
           <mat-label>Prix Achat</mat-label>
-          <input matInput type="number" [(ngModel)]="produit.prixAchat" name="prixAchat" [disabled]="produit.id" required>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="produit.prixAchat"
+            name="prixAchat"
+            [disabled]="produit.id"
+            required
+          />
         </mat-form-field>
-        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px;">
+        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px">
           <mat-label>Prix Vente</mat-label>
-          <input matInput type="number" [(ngModel)]="produit.prixVente" name="prixVente" [disabled]="produit.id" required>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="produit.prixVente"
+            name="prixVente"
+            [disabled]="produit.id"
+            required
+          />
         </mat-form-field>
-        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px;">
+        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px">
           <mat-label>Quantité</mat-label>
-          <input matInput type="number" [(ngModel)]="produit.quantite" name="quantite" [disabled]="produit.id" required>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="produit.quantite"
+            name="quantite"
+            [disabled]="produit.id"
+            required
+          />
         </mat-form-field>
-        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px;">
+        <mat-form-field fxFlex appearance="outline" style="flex: 1 1 120px">
           <mat-label>Stock Restant</mat-label>
-          <input matInput type="number" [(ngModel)]="produit.stockRestant" name="stockRestant" required>
+          <input 
+            matInput
+            type="number"
+            [(ngModel)]="produit.stockRestant"
+            name="stockRestant"
+            required
+          />
         </mat-form-field>
       </div>
-      <div style="margin-top: 16px;">
-        <button mat-raised-button color="primary" type="submit">Enregistrer</button>
-        <button mat-raised-button color="accent" type="button" (click)="resetForm()">Annuler</button>
+      <div style="margin-top: 16px">
+        <button mat-raised-button color="primary" type="submit">
+          Enregistrer
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          (click)="resetForm()"
+        >
+          Annuler
+        </button>
       </div>
     </form>
   </mat-card>
 
-  <mat-card style="margin-top: 20px;">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+  <mat-card style="margin-top: 20px">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      style="width: 100%"
+    >
       <ng-container matColumnDef="nom">
-        <th mat-header-cell *matHeaderCellDef> Désignation </th>
-        <td mat-cell *matCellDef="let p"> {{p.nom}} </td>
+        <th mat-header-cell *matHeaderCellDef>Désignation</th>
+        <td mat-cell *matCellDef="let p">{{ p.nom }}</td>
       </ng-container>
 
       <ng-container matColumnDef="prixAchat">
-        <th mat-header-cell *matHeaderCellDef> Prix Achat </th>
-        <td mat-cell *matCellDef="let p"> {{p.prixAchat}} FCFA</td>
+        <th mat-header-cell *matHeaderCellDef>Prix Achat</th>
+        <td mat-cell *matCellDef="let p">{{ p.prixAchat }} FCFA</td>
       </ng-container>
 
       <ng-container matColumnDef="prixVente">
-        <th mat-header-cell *matHeaderCellDef> Prix Vente </th>
-        <td mat-cell *matCellDef="let p"> {{p.prixVente}} FCFA</td>
+        <th mat-header-cell *matHeaderCellDef>Prix Vente</th>
+        <td mat-cell *matCellDef="let p">{{ p.prixVente }} FCFA</td>
       </ng-container>
 
       <ng-container matColumnDef="quantite">
-        <th mat-header-cell *matHeaderCellDef> Quantité </th>
-        <td mat-cell *matCellDef="let p" > 
+        <th mat-header-cell *matHeaderCellDef>Quantité</th>
+        <td mat-cell *matCellDef="let p">
           <span class="quantite-chip">
             {{ p.quantite }}
           </span>
-      </td>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="prixTotalAchat">
-        <th mat-header-cell *matHeaderCellDef> Prix Achat Total </th>
-        <td mat-cell *matCellDef="let p"> {{p.prixTotalAchat}} FCFA </td>
+        <th mat-header-cell *matHeaderCellDef>Prix Achat Total</th>
+        <td mat-cell *matCellDef="let p">{{ p.prixTotalAchat }} FCFA</td>
       </ng-container>
       <ng-container matColumnDef="prixTotalVente">
-        <th mat-header-cell *matHeaderCellDef> Prix Vente Total </th>
-        <td mat-cell *matCellDef="let p"> {{p.prixTotalVente}} FCFA </td>
+        <th mat-header-cell *matHeaderCellDef>Prix Vente Total</th>
+        <td mat-cell *matCellDef="let p">{{ p.prixTotalVente }} FCFA</td>
       </ng-container>
       <ng-container matColumnDef="quantiteVendu">
-        <th mat-header-cell *matHeaderCellDef> Quantite Vendue </th>
-        <td mat-cell *matCellDef="let p" >
-          <span class="vendu-chip" [ngClass]="{ 'negative': p.quantiteVendu < 0, 'positive': p.quantiteVendu >= 0 }">
+        <th mat-header-cell *matHeaderCellDef>Quantite Vendue</th>
+        <td mat-cell *matCellDef="let p">
+          <span
+            class="vendu-chip"
+            [ngClass]="{
+              negative: p.quantiteVendu < 0,
+              positive: p.quantiteVendu >= 0
+            }"
+          >
             {{ p.quantiteVendu < 0 ? 0 : p.quantiteVendu }}
           </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="stockRestant">
-        <th mat-header-cell *matHeaderCellDef> Stock Restant</th>
+        <th mat-header-cell *matHeaderCellDef>Stock Restant</th>
         <td mat-cell *matCellDef="let p">
           <span [ngClass]="p.stockRestant < 2 ? 'stock-low' : 'stock-ok'">
             {{ p.stockRestant }}
           </span>
-          </td>
+        </td>
       </ng-container>
       <ng-container matColumnDef="benefice">
-        <th mat-header-cell *matHeaderCellDef> Bénéfice </th>
-        <td mat-cell *matCellDef="let p"> {{p.benefice}} F </td>
+        <th mat-header-cell *matHeaderCellDef>Bénéfice</th>
+        <td mat-cell *matCellDef="let p">{{ p.benefice }} F</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let p">
-          <button mat-icon-button color="primary" (click)="editProduit(p)">
+          <button mat-icon-button color="primary" (click)="editProduit(p)" matTooltip="Modifier">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteProduit(p.id)">
+          <button mat-icon-button color="warn" (click)="deleteProduit(p.id)" matTooltip="Supprimer">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator [length]="produits.length"
-    [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons>
-</mat-paginator>
+    <mat-paginator
+      [length]="produits.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
 
     <!-- EXPORTATION EN PDF DE TOUT LE TABLEAU) -->
-<button mat-raised-button color="warn" (click)="exporterPDF()" class="export-btn">
-  <mat-icon>picture_as_pdf</mat-icon>
-  Exporter en PDF
-</button>
-
-    
-
-    
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="exporterPDF()"
+      class="export-btn"
+    >
+      <mat-icon>picture_as_pdf</mat-icon>
+      Exporter en PDF
+    </button>
   </mat-card>
-  <mat-card style="margin-top: 24px; background: linear-gradient(to right, #e3f2fd, #f1f8e9); box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 16px;">
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding: 24px 16px;">
-  
-      <div class="summary-card" style="text-align: center; flex: 1 1 200px;">
-        <mat-icon style="font-size: 40px; color: #1976d2;">shopping_cart</mat-icon>
-        <div style="font-size: 18px; font-weight: 500; color: #444;">Total Achat</div>
-        <div style="font-size: 24px; font-weight: bold; color: #1976d2;">{{ totalPrixAchat | number:'1.0-0' }} F</div>
+  <mat-card
+    style="
+      margin-top: 24px;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+    "
+  >
+    <div
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+        padding: 24px 16px;
+      "
+    >
+      <div class="summary-card" style="text-align: center; flex: 1 1 200px">
+        <mat-icon style="font-size: 40px; color: #1976d2"
+          >shopping_cart</mat-icon
+        >
+        <div style="font-size: 18px; font-weight: 500; color: #444">
+          Total Achat
+        </div>
+        <div style="font-size: 24px; font-weight: bold; color: #1976d2">
+          {{ totalPrixAchat | number : "1.0-0" }} F
+        </div>
       </div>
-  
-      <div class="summary-card" style="text-align: center; flex: 1 1 200px;">
-        <mat-icon style="font-size: 40px; color: #388e3c;">sell</mat-icon>
-        <div style="font-size: 18px; font-weight: 500; color: #444;">Total Vente</div>
-        <div style="font-size: 24px; font-weight: bold; color: #388e3c;">{{ totalPrixVente | number:'1.0-0' }} FCFA</div>
+
+      <div class="summary-card" style="text-align: center; flex: 1 1 200px">
+        <mat-icon style="font-size: 40px; color: #388e3c">sell</mat-icon>
+        <div style="font-size: 18px; font-weight: 500; color: #444">
+          Total Vente
+        </div>
+        <div style="font-size: 24px; font-weight: bold; color: #388e3c">
+          {{ totalPrixVente | number : "1.0-0" }} FCFA
+        </div>
       </div>
-  
-      <div class="summary-card" style="text-align: center; flex: 1 1 200px;">
-        <mat-icon style="font-size: 40px; color: #f9a825;">monetization_on</mat-icon>
-        <div style="font-size: 18px; font-weight: 500; color: #444;">Bénéfice Total</div>
-        <div style="font-size: 24px; font-weight: bold; color: #f9a825;">{{ totalBenefice | number:'1.0-0' }} FCFA</div>
+
+      <div class="summary-card" style="text-align: center; flex: 1 1 200px">
+        <mat-icon style="font-size: 40px; color: #f9a825"
+          >monetization_on</mat-icon
+        >
+        <div style="font-size: 18px; font-weight: 500; color: #444">
+          Bénéfice Total
+        </div>
+        <div style="font-size: 24px; font-weight: bold; color: #f9a825">
+          {{ totalBenefice | number : "1.0-0" }} FCFA
+        </div>
       </div>
-  
     </div>
   </mat-card>
-  
+
   <ng-template #editDialog>
     <div class="popup-container">
-    <h2 mat-dialog-title class="popup-title">Modifier Produit</h2>
-    <mat-dialog-content  class="popup-content">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Désignation</mat-label>
-        <input matInput [(ngModel)]="produitEnEdition.nom" [disabled]="produitEnEdition.id">
-      </mat-form-field>
-      <div class="form-row">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Prix Achat</mat-label>
-        <input matInput type="number" [(ngModel)]="produitEnEdition.prixAchat" [disabled]="produitEnEdition.id">
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Prix Vente</mat-label>
-        <input matInput type="number" [(ngModel)]="produitEnEdition.prixVente" [disabled]="produitEnEdition.id">
-      </mat-form-field>
+      <h2 mat-dialog-title class="popup-title">Modifier Produit</h2>
+      <mat-dialog-content class="popup-content">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Désignation</mat-label>
+          <input
+            matInput
+            [(ngModel)]="produitEnEdition.nom"
+            [disabled]="produitEnEdition.id"
+          />
+        </mat-form-field>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Prix Achat</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="produitEnEdition.prixAchat"
+              [disabled]="produitEnEdition.id"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Prix Vente</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="produitEnEdition.prixVente"
+              [disabled]="produitEnEdition.id"
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Quantité</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="produitEnEdition.quantite"
+              [disabled]="produitEnEdition.id"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Stock Restant</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="produitEnEdition.stockRestant"
+            />
+          </mat-form-field>
+        </div>
+      </mat-dialog-content>
+
+      <mat-dialog-actions align="end" class="popup-actions">
+        <button mat-button color="red" (click)="dialog.closeAll()">
+          Annuler
+        </button>
+        <button mat-raised-button color="primary" (click)="saveEdit()">
+          Enregistrer
+        </button>
+      </mat-dialog-actions>
     </div>
-    <div class="form-row">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Quantité</mat-label>
-        <input matInput type="number" [(ngModel)]="produitEnEdition.quantite" [disabled]="produitEnEdition.id">
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Stock Restant</mat-label>
-        <input matInput type="number" [(ngModel)]="produitEnEdition.stockRestant">
-      </mat-form-field>
-    </div>
-    </mat-dialog-content>
-  
-    <mat-dialog-actions align="end"  class="popup-actions">
-      <button mat-button color="warm" (click)="dialog.closeAll()">Annuler</button>
-      <button mat-raised-button color="primary" (click)="saveEdit()">Enregistrer</button>
-    </mat-dialog-actions>
-  </div>
   </ng-template>
   <ng-template #confirmDialog let-dialogRef="dialogRef">
     <h2 mat-dialog-title>🗑️ Confirmation</h2>
-    <mat-dialog-content>Voulez-vous vraiment supprimer ce produit ?</mat-dialog-content>
+    <mat-dialog-content
+      >Voulez-vous vraiment supprimer ce produit ?</mat-dialog-content
+    >
     <mat-dialog-actions align="end">
       <button mat-button (click)="dialogRef.close(false)">Annuler</button>
-      <button mat-button color="warn" (click)="dialogRef.close(true)">Supprimer</button>
+      <button mat-button color="warn" (click)="dialogRef.close(true)">
+        Supprimer
+      </button>
     </mat-dialog-actions>
-  </ng-template>  
-  
+  </ng-template>
 </div>
